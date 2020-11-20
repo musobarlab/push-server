@@ -1,6 +1,6 @@
 Untuk Memulai membangun `Push Notification Server` milik kita sendiri, kita perlu menyiapkan beberapa hal.
 
-Kita belum akan menggunakan komputer server asli. Melainkan kita akan menggunakan Virtual Machine. Untuk mempermudah proses menejnya, kita akan memanfaatkan Vagrant (https://www.vagrantup.com/). Jadi pastikan `VirtualBox` dan `Vagrant` sudah terinstall pada komputer anda.
+Kita belum akan menggunakan komputer server asli. Melainkan kita akan menggunakan Virtual Machine. Untuk mempermudah proses menejnya, kita akan memanfaatkan Vagrant (https://www.vagrantup.com/). Jadi pastikan `VirtualBox` https://www.virtualbox.org/ dan `Vagrant` sudah terinstall pada komputer anda.
 
 Saya akan menggunakan Virtual Machine `Ubuntu 18`. Jika belum ada, perintah dibawah akan mengunduhkan `box ubuntu/bionic64` ke lokal komputer anda.
 ```shell
