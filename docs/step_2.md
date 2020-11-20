@@ -51,7 +51,7 @@ Setelah proses restart selesai, dan pastikan mosquitto broker sudah running kare
 
 ```shell
 vagrant@ubuntu-bionic:~$ mosquitto_sub -h localhost -p 1883 -t test1
-Error: Connection refused
+Connection Refused: not authorised.
 ```
 
 Coba lagi dengan menambahkan flag username dan password.
