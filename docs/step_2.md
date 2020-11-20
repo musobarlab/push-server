@@ -1,10 +1,19 @@
 # Install Mosquitto (MQTT Broker)
 
+Mosquitto adalah salah satu implementasi dari protokol `MQTT(Message Queuing Telemetry Transport)`. Sebenarnya ada banyak implementasi dari `protocol` `MQTT`, tapi kali ini kita akan menggunakan `mosquitto` https://mosquitto.org/ pada `Lab` kali ini.
+
+Install `mosquitto MQTT Broker`
+
 ```shell
 $ sudo apt-get install mosquitto mosquitto-clients
 ```
 
-### Test mosquitto server
+Cek status `mosquitto broker`
+```shell
+$ sudo systemctl status mosquitto
+```
+
+### Test mosquitto broker
 By default, `mosquitto` running pada port `1883`, kita akan mencoba   `publish` dan `subscribe` `message` ke `mosquitto` brokernya.
 
 subscribe
@@ -47,7 +56,7 @@ Restart `Mosquitto Server`
 $ sudo systemctl restart mosquitto
 ```
 
-Setelah proses restart selesai, dan pastikan mosquitto broker sudah running karena tidak ada error pada file konfigurasi yang kita buat tadi, maka ketika kita mencoba menjalankan `mosquitto_sub` akan terjadi error. Karena sekarang semua koneksi membutuhkan username dan password.
+Setelah proses restart selesai, dan pastikan `mosquitto broker` sudah running karena tidak ada error pada file konfigurasi yang kita buat tadi. Kali ini, ketika kita mencoba menjalankan `mosquitto_sub` akan terjadi error. Karena sekarang semua koneksi membutuhkan `username` dan `password`.
 
 ```shell
 vagrant@ubuntu-bionic:~$ mosquitto_sub -h localhost -p 1883 -t test1
@@ -65,12 +74,12 @@ $ mosquitto_pub -h localhost -p 1883 -u "mylord" -P "12345" -t test1 -m "hello w
 ```
 
 ## Catatan
-Jika anda mengalami error saat melakukan publish atau subscribe, kemungkinan ada salah format pada file `mosquitto.conf` yang anda buat.
+Jika anda mengalami error saat melakukan `publish` atau `subscribe`, kemungkinan ada salah format pada file `/etc/mosquitto/conf.d/default.conf` yang anda buat.
 ```shell
 $ mosquitto_sub -h localhost -p 1883 -t test1 -u "mylord" -P "12345"
 Error: Connection refused
 ```
-Coba tambahkan satu baris lagi atau hilangkan satu baris dengan menekan `Enter` pada file `mosquitto.conf`.
+Coba tambahkan satu baris lagi atau hilangkan satu baris dengan menekan `Enter` pada file `/etc/mosquitto/conf.d/default.conf`.
 
 ### Publish JSON
 ```shell
@@ -78,7 +87,7 @@ $ mosquitto_pub -h localhost -p 1883 -t test1 -u "mylord" -P "12345" -m '{"heade
 ```
 
 ### Websocket transport
-Syarat protocol MQTT dapat berkomunikasi dengan Javascript (Browser), kita harus menambahkan satu listener dan satu protocol supaya bisa terkoneksi melalui Websocket.
+Syarat `protocol MQTT` dapat berkomunikasi dengan `Javascript (Browser)`, yaitu kita harus menambahkan satu `listener` dan satu `protocol` supaya bisa terkoneksi melalui `Websocket`.
 
 Buka file `/etc/mosquitto/conf.d/default.conf`
 ```
@@ -86,7 +95,7 @@ allow_anonymous false
 password_file /etc/mosquitto/passwd
 ```
 
-Pada step sebelumnya kita suda melakukan beberapa hal, seperti menolak semua koneksi yang tidak menggunakan username dan password. Kali ini kita tambahkan config untuk mendukung koneksi melalui Websocket. Perbaharui file `/etc/mosquitto/conf.d/default.conf` menjadi berikut ini.
+Pada step sebelumnya kita suda melakukan beberapa hal, seperti menolak semua koneksi yang tidak menggunakan username dan password. Kali ini kita tambahkan config untuk mendukung koneksi melalui `Websocket`. Perbaharui file `/etc/mosquitto/conf.d/default.conf` menjadi berikut ini.
 
 ```
 allow_anonymous false
@@ -97,3 +106,8 @@ protocol websockets
 ```
 
 Pada line ketiga, kita tetap menambahkan `listener 1883`, yaitu default port untuk terkoneksi melalui protocol `tcp`. Kita tambahkan `listener 1884` dan `protocol websockets` supaya client bisa terkoneksi melalui Websocket.
+
+Kemudian `restart` lagi `mosquitto server` nya.
+```shell
+$ sudo systemctl restart mosquitto
+```
