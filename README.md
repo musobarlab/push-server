@@ -51,7 +51,7 @@ Perintah ini akan meminta `password` untuk username `mylord`, kita isi dengan `p
 $ sudo mosquitto_passwd -c /etc/mosquitto/passwd mylord
 ```
 
-Selanjutnya kita buatkan default configuration untuk memberitahu mosquitto broker bahwa usernam dan password yang kita buat tadi mandatory untuk setiap koneksi yang dibuka.
+Selanjutnya kita buatkan default configuration untuk memberitahu mosquitto broker bahwa username dan password yang kita buat tadi mandatory untuk setiap koneksi yang dibuka.
 
 Buka atau buat file `default.conf`
 ```shell
