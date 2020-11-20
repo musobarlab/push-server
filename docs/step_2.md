@@ -64,6 +64,14 @@ lakukan hal yang sama ke `mosquitto_pub`
 $ mosquitto_pub -h localhost -p 1883 -u "mylord" -P "12345" -t test1 -m "hello world"
 ```
 
+## Catatan
+Jika anda mengalami error saat melakukan publish atau subscribe, kemungkinan ada salah format pada file `mosquitto.conf` yang anda buat.
+```shell
+$ mosquitto_sub -h localhost -p 1883 -t test1 -u "mylord" -P "12345"
+Error: Connection refused
+```
+Coba tambahkan satu baris lagi atau hilangkan satu baris dengan menekan `Enter` pada file `mosquitto.conf`.
+
 ### Publish JSON
 ```shell
 $ mosquitto_pub -h localhost -p 1883 -t test1 -u "mylord" -P "12345" -m '{"header":"haha","content":"kamu belum absen ya kayaknya..."}'
