@@ -1,4 +1,6 @@
-### install mosquitto
+Untuk Memulai membangun `Push Notification Server` milik kita sendiri, kita perlu menyiapkan beberapa hal.
+
+### Install Mosquitto (MQTT Broker)
 
 ```shell
 $ sudo apt-get install mosquitto mosquitto-clients
