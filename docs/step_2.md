@@ -11,6 +11,15 @@ $ sudo apt-get install mosquitto mosquitto-clients
 Cek status `mosquitto broker`
 ```shell
 $ sudo systemctl status mosquitto
+● mosquitto.service - LSB: mosquitto MQTT v3.1 message broker
+   Loaded: loaded (/etc/init.d/mosquitto; generated)
+   Active: active (running) since Fri 2020-11-20 02:29:54 UTC; 22h ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 20009 ExecStop=/etc/init.d/mosquitto stop (code=exited, status=0/SUCCESS)
+  Process: 20027 ExecStart=/etc/init.d/mosquitto start (code=exited, status=0/SUCCESS)
+    Tasks: 1 (limit: 4696)
+   CGroup: /system.slice/mosquitto.service
+           └─20033 /usr/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
 ```
 
 ### Test mosquitto broker
