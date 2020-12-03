@@ -1,58 +1,61 @@
 import logo from './logo.svg';
-import React, { useEffect } from 'react';
 import './App.css';
+import React, {useEffect} from 'react';
 import mqtt from 'mqtt';
 
 const options = {
   protocol: 'ws',
   clientId: 'react-client',
   username: 'mylord',
-  password: '12345'
+  password: '12345',
 };
-
 
 function App() {
 
   useEffect(() => {
-    let notification;
 
+    let notification;
+    
     let client = mqtt.connect('ws://192.168.33.13:1884', options);
 
     client.on('connect', (packet) => {
       client.subscribe('test1', {}, (err, granted) => {
-        console.log('mqtt subscribed succeed');
+        console.log('react client subscription succeed');
         console.log(granted);
       });
     });
 
-    client.on('error', (error) => {
-      console.log('mqtt connection error: ', error);
+    client.on('error', (err) => {
+      console.log('mqtt connection error: ', err);
     });
 
     client.on('message', (topic, message, packet) => {
-      console.log('--------------------------');
-      console.log('message from topic : ', topic);
+      console.log('-------------------------------');
+      console.log("message from topic : ", topic);
       let msg = message.toString();
-      let msgJSON = JSON.parse(msg)
+      let msgJSON = JSON.parse(msg);
+      console.log(msgJSON);
+
+      // display notification
       showNotification(msgJSON);
     });
 
+    // check if browser support Notification
     const isSupportNotification = ('Notification' in window);
 
     const showNotification = (message) => {
-      const options = {
+      const messageOptions = {
         body: message.content,
-        icon: "https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-        dir: "ltr"
+        dir: 'ltr',
       };
-      notification = new Notification("Notification Demo", options);
+
+      notification = new Notification('Innovation Day', messageOptions);
     };
 
     const closeNotification = () => {
       notification.close();
-    }
+    };
 
-    // notification
     if (!isSupportNotification) {
       console.log('browser does not support notifications');
     } else {
@@ -60,10 +63,8 @@ function App() {
       .then((permission) => {
         console.log(permission);
       }).catch((err) => {
-        console.log('permisson not granted ', err);
+        console.log('permission not granted: ', err);
       });
-      
-      console.log('notification are supported');
     }
 
     return () => {
@@ -72,7 +73,7 @@ function App() {
       }
     }
 
-  }, []);
+  });
 
   return (
     <div className="App">
